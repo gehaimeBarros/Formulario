@@ -1,0 +1,44 @@
+<html>
+
+<body>
+
+
+    <form name="formulario" action="enviar.php" method="post">
+        <fieldset>
+            <legend>Teste</legend>
+            Informe seu nome: <input type="text" name='nome'>
+            <input type="text" name='telefone'>
+            <input type="text" name='email'>
+            <p>
+                <input type="submit" onclick="return validar()">
+        </fieldset>
+    </form>
+    E
+
+</body>
+<script>
+    function validar() {
+
+        var nome = formulario.nome.value;
+        var telefone = formulario.telefone.value;
+        var email = formulario.email.value;
+
+        if (nome == "") {
+            alert('Preencha o campo com seu nome');
+            formulario.nome.focus();
+            return false;
+        }
+        if (telefone == "") {
+            alert('Preencha o campo com seu telefone');
+            formulario.nome.focus();
+            return false;
+        }
+        if (email == "") {
+            alert('Preencha o campo com seu email');
+            formulario.nome.focus();
+            return false;
+        }
+    }
+</script>
+
+</html>

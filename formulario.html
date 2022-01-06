@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Formulario | Responda</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="//code-sa1.jivosite.com/widget/u07etb7y72" async></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="https://img.icons8.com/color/96/000000/google-forms.png" type="image/x-icon">
+    <link rel="stylesheet" href="home/src/css/styles.css">
+</head>
+
+<body onload="Captcha();">
+
+    <form name="formulario" action="enviar.php" method="post">
+
+        <header class="texto-principal">
+            <h1>Formulario Dev</h1>
+        </header>
+
+        <div style="text-align: center;">
+            <button onclick="getLocation()" class="btn-abrir-mapa">Localização</button>
+            <input type="submit" class="btn-fechar-mapa"
+                onclick="document.getElementById('mapholder').style.display='none'" value="fechar">
+            <div id="mapholder" style="margin: auto;"></div>
+        </div><br><br><br>
+
+        <div>
+            <a href="https://api.whatsapp.com/send?phone=5519999999999&text=Texto%20aqui" target="_blank"
+                style="position:fixed;bottom:70px;right:30px;">
+                <svg enable-background="new 0 0 512 512" width="50" height="50" version="1.1" viewBox="0 0 512 512"
+                    xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M256.064,0h-0.128l0,0C114.784,0,0,114.816,0,256c0,56,18.048,107.904,48.736,150.048l-31.904,95.104  l98.4-31.456C155.712,496.512,204,512,256.064,512C397.216,512,512,397.152,512,256S397.216,0,256.064,0z"
+                        fill="#4CAF50" />
+                    <path
+                        d="m405.02 361.5c-6.176 17.44-30.688 31.904-50.24 36.128-13.376 2.848-30.848 5.12-89.664-19.264-75.232-31.168-123.68-107.62-127.46-112.58-3.616-4.96-30.4-40.48-30.4-77.216s18.656-54.624 26.176-62.304c6.176-6.304 16.384-9.184 26.176-9.184 3.168 0 6.016 0.16 8.576 0.288 7.52 0.32 11.296 0.768 16.256 12.64 6.176 14.88 21.216 51.616 23.008 55.392 1.824 3.776 3.648 8.896 1.088 13.856-2.4 5.12-4.512 7.392-8.288 11.744s-7.36 7.68-11.136 12.352c-3.456 4.064-7.36 8.416-3.008 15.936 4.352 7.36 19.392 31.904 41.536 51.616 28.576 25.44 51.744 33.568 60.032 37.024 6.176 2.56 13.536 1.952 18.048-2.848 5.728-6.176 12.8-16.416 20-26.496 5.12-7.232 11.584-8.128 18.368-5.568 6.912 2.4 43.488 20.48 51.008 24.224 7.52 3.776 12.48 5.568 14.304 8.736 1.792 3.168 1.792 18.048-4.384 35.52z"
+                        fill="#FAFAFA" /></svg>
+            </a>
+        </div>
+
+        <section>
+            <p><input type="text" name="nomeUsuario" id="nome" placeholder="Nome completo" required></p>
+            <p><input type="text" name="emailUsuario" id="email" onblur="validacaoEmail(f1.email)" maxlength="60"
+                    placeholder="email" />
+                <div id="msgemail"></div>
+            </p>
+            <p><input id="num" name="idadeUsuario" placeholder="Idade" type="number"
+                    onkeypress="return somenteNumeros(event)" required>
+            </p>
+        </section>
+
+        <div
+            style="border: 1px solid white; background-color: white; text-align: center; width: 298px; border-radius: 3px; height: 50px;">
+            <input type="text" name="rgUsuario"
+                style="cursor: pointer; border: none; width: 210px; outline: 0; box-shadow: 0 0 0 0; height: 33px; background-color: transparent;"
+                id="rg" maxlength="10" onKeyUp="nu(this)" placeholder="RG" required> <input type=button
+                value='Validar RG'
+                style="border: none; background-color: transparent; cursor: pointer; outline: 0; box-shadow: 0 0 0 0;"
+                onClick="if(document.getElementById('rg').value != ''){ValRG(document.getElementById('rg').value)}else{alert('RG em branco')}"
+                required>
+            <b id=camada></b>
+
+        </div>
+
+        <div>
+            <p><input id="cpf" type="text" onkeyup="cpfCheck(this)" maxlength="18"
+                    onkeydown="javascript: fMasc( this, mCPF );" name="cpfUsuario" placeholder="Digite o CPF" /> <span
+                    id="cpfResponse"></span></p>
+
+            <p>
+                <input placeholder="Data de nascimento" name="dataNascimento" class="textbox-n" type="text"
+                    onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')"
+                    id="date"></p>
+        </div>
+
+        <section>
+            <p><select name="sexoUsuario" id="sexo">
+                    <option selected>Sexo</option>
+                    <option>Masculino</option>
+                    <option>Feminino</option>
+                </select></p>
+        </section>
+
+        <form method="get" action=".">
+            <label>
+                <input name="cepUser" type="text" id="cep" value="" size="13" maxlength="9"
+                    onblur="pesquisacep(this.value);" placeholder="Cep" /></label>
+            <label>
+                <input name="numeroUser" type="text" id="numero" size="3" placeholder="nº" /></label>
+            <label>
+                <input name="ufUser" type="text" id="uf" size="3" placeholder="Uf" /></label><br><br>
+            <label>
+                <input name="ruaUser" type="text" id="rua" size="30" placeholder="Rua" /></label>
+            <label><br><br>
+                <input name="bairroUser" type="text" id="bairro" size="30" placeholder="Bairro" /></label>
+            <label><br><br>
+                <input name="cidadeUser" type="text" id="cidade" size="30" placeholder="Cidade" /></label><br />
+        </form><br>
+
+        <section>
+            <b>Empresa atual ou anterior, caso nao esteja trabalhando</b>
+            <p><input type="text" name="empresaUsuario" id="empresa" placeholder="Empresa" /></p>
+            <p><input type="text" name="localizacao" id="local" placeholder="Local"></p>
+        </section>
+
+        <section>
+            <p><select name="nivel" id="nivel-tecnico">
+                    <option selected>Nivel tecnico</option>
+                    <option>Junrio</option>
+                    <option>Pleno</option>
+                    <option>Senior</option>
+                    <option>Especialista</option>'
+                </select></p>
+        </section>
+
+        <section>
+            <p><select name="escolaridadeUsuario" id="escolaridade">
+                    <option selected>Ecolaridade</option>
+                    <option>Fundamental</option>
+                    <option>Médio</option>
+                    <option>Superior</option>
+                    <option>Superior (incompleto)</option>
+                    <option>Pós-graduação</option>'
+                    <option>Mestrado</option>'
+                    <option>Doutorado</option>'
+                </select></p>
+        </section>
+
+        <section>
+            <p><select name="contatoUsuario" id="contato">
+                    <option selected>Contato</option>
+                    <option>Telefone</option>
+                    <option>Celular</option>
+                </select><input type="text" id="phone" name="phoneUser" onkeypress="mask(this, mphone);"
+                    onblur="mask(this, mphone);" placeholder=" Ex: (DD) 00000-0000" /></p>
+        </section>
+
+        <section>
+            <b>Selecione a linguagem que voce sabe e nivel</b><br>
+            <p><input type="checkbox" name="javaScriptUsuario" id="js" />
+                <label for="">JavaScript
+                    <select name="jsUsuario" id="opç-one">
+                        <option selected>Selecione</option>
+                        <option>Junior</option>
+                        <option>Pleno</option>
+                        <option>Senior</option>
+                        <option>Especialista</option>'
+                    </select></label></p>
+            <p><input type="checkbox" name="pythonUsuario" id="py" />
+                <label for="">Python&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select name="pyUsuario" id="opç-one">
+                        <option selected>Selecione</option>
+                        <option>Junior</option>
+                        <option>Pleno</option>
+                        <option>Senior</option>
+                        <option>Especialista</option>'
+                    </select></label></p>
+            <p><input type="checkbox" name="javaUsuario" id="java" />
+                <label for="">Java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select name="javaUser" id="opç-one">
+                        <option selected>Selecione</option>
+                        <option>Junior</option>
+                        <option>Pleno</option>
+                        <option>Senior</option>
+                        <option>Especialista</option>'
+                    </select></label></p>
+            <p><input type="checkbox" name="rbUsuario" id="ruby" />
+                <label for="">Ruby&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select name="rubyUsuario" id="opç-one">
+                        <option selected>Selecione</option>
+                        <option>Junior</option>
+                        <option>Pleno</option>
+                        <option>Senior</option>
+                        <option>Especialista</option>'
+                    </select></label></p>
+            <p><input type="checkbox" name="swtUser" id="swt" />
+                <label for="">Swift&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select name="swtUsuario" id="opç-one">
+                        <option selected>Selecione</option>
+                        <option>Junior</option>
+                        <option>Pleno</option>
+                        <option>Senior</option>
+                        <option>Especialista</option>'
+                    </select></label></p>
+        </section>
+
+        <section>
+            <p><b>De qual lado da aplicação voce densenvolve</b></p>
+            <input type="radio" id="A" name="myGroup">
+            <label for="">Back-end</label><br>
+            <input type="radio" id="B" name="myGroup">
+            <label for="">Front-end</label><br>
+            <input type="radio" id="C" name="myGroup">
+            <label for="">Fullstack</label>
+        </section><br>
+
+        <section>
+            <b>Sabe mais alguma ?</b><br>
+            <p><textarea name="" id="duvida-one" cols="30" rows="10" style="height: 70px; width: 380px;"
+                    placeholder="Digite..."></textarea></p>
+        </section>
+
+        <section>
+            <b>Conte um pouco mais da sua experiencia</b><br>
+            <p><textarea rows="" id="experiencia" cols="" style="height: 70px; width: 380px;"
+                    placeholder="Digite..."></textarea></p>
+        </section>
+
+        <div class="capt">
+            <div style="text-align: center; font-family: Arial, Helvetica, sans-serif;"><label>
+                    <input style="transform: scale(1.2); cursor: pointer;" type="checkbox" id="remember"
+                        name="remember">
+                    I'm not a robot</label></div>
+
+            <h2 type="text" id="mainCaptcha"></h2>
+            <p><img src="/home/img/icons8-refresh-64.png" id="refresh" onclick="Captcha();" /></p>
+            <p><input type="text" id="txtInput" placeholder="Digite" /></p>
+            <input id="Button1" type="button" value="Check" onclick="alert(ValidCaptcha()), validar()" />
+        </div><br>
+
+        <div class="clean">
+            <button onclick="apagarTudo()" class="btn-apagar">Limpar Formulario</button>
+        </div><br>
+
+    </form>
+
+    <script src="home/src/packages/js/app.js"></script>
+
+</body>
+
+</html>
